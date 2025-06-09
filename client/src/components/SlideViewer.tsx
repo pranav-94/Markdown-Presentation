@@ -162,11 +162,6 @@ const SlideViewer = ({ markdown, layout = "default" }: Props) => {
     return quoteNode || null
   }
 
-  const getFirstCode = () => {
-    const codeNode = tree.children.find((node: any) => node.type === "code")
-    return codeNode || null
-  }
-
   switch (layout) {
     case "title":
       return (
