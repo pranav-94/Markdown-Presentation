@@ -16,7 +16,7 @@ export default function EditSlide() {
 
   useEffect(() => {
     if (id) {
-      axios.get(`http://localhost:3000/api/slides/${id}`).then((res) => {
+      axios.get(`https://markdown-presentation.onrender.com/api/slides/${id}`).then((res) => {
         setSlide(res.data)
         setLoading(false)
       })
@@ -26,7 +26,7 @@ export default function EditSlide() {
   const handleSave = async () => {
     if (!slide) return
     setSaving(true)
-    await axios.put(`http://localhost:3000/api/slides/${slide.id}`, {
+    await axios.put(`https://markdown-presentation.onrender.com/api/slides/${slide.id}`, {
       title: slide.title,
       markdown: slide.markdown,
       layout: slide.layout,

@@ -9,7 +9,7 @@ export default function SlideList() {
   const [slides, setSlides] = useState<Slide[]>([])
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/slides").then((res) => {
+    axios.get("https://markdown-presentation.onrender.com/api/slides").then((res) => {
       setSlides(res.data)
       console.log(res)
     })

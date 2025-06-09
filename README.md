@@ -68,7 +68,7 @@ cd markdown-presentation-app
 cd server
 npm install
 npm run dev
-# Server will start on http://localhost:3000
+# Server will start on https://markdown-presentation.onrender.com
 ```
 
 ### 3. Setup Client

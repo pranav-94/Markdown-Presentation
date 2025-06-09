@@ -13,7 +13,7 @@ const PresentSlide = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/slides").then((res) => {
+    axios.get("https://markdown-presentation.onrender.com/api/slides").then((res) => {
       const sortedSlides = res.data.sort((a: Slide, b: Slide) => a.id - b.id)
       setSlides(sortedSlides)
       const initialIndex = sortedSlides.findIndex((s: Slide) => s.id === Number(id))
@@ -60,7 +60,7 @@ const PresentSlide = () => {
     if (!confirmed) return;
 
     try {
-      await axios.delete(`http://localhost:3000/api/slides/${slide.id}`);
+      await axios.delete(`https://markdown-presentation.onrender.com/api/slides/${slide.id}`);
       const updatedSlides = slides.filter((s) => s.id !== slide.id);
       setSlides(updatedSlides);
 

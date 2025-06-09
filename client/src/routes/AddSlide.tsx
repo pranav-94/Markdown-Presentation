@@ -20,7 +20,7 @@ export default function AddSlide() {
     }
 
     setSaving(true)
-    await axios.post("http://localhost:3000/api/slides", {
+    await axios.post("https://markdown-presentation.onrender.com/api/slides", {
       title,
       layout,
       markdown,
