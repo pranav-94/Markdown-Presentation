@@ -1,101 +1,16 @@
-// import { remark } from "remark"
-// import remarkParse from "remark-parse"
-
-// type Props = {
-//   markdown: string
-// }
-
-// const SlideViewer = ({ markdown }: Props) => {
-//   const tree = remark().use(remarkParse).parse(markdown)
-
-//   const renderNode = (node: any, key: number) => {
-//     switch (node.type) {
-//       case "heading":
-//         //@ts-ignore
-//         const HeadingTag = `h${node.depth}` as keyof JSX.IntrinsicElements
-//         return (
-//           //@ts-ignore
-//           <HeadingTag
-//             key={key}
-//             className={`font-bold mb-4 ${
-//               node.depth === 1
-//                 ? "text-4xl sm:text-5xl"
-//                 : node.depth === 2
-//                   ? "text-3xl sm:text-4xl"
-//                   : node.depth === 3
-//                     ? "text-2xl sm:text-3xl"
-//                     : "text-xl sm:text-2xl"
-//             }`}
-//           >
-//             {node.children[0]?.value || ""}
-//           </HeadingTag>
-//         )
-//       case "paragraph":
-//         return (
-//           <p key={key} className="text-lg sm:text-xl leading-relaxed mb-4">
-//             {node.children.map((c: any, i: number) => renderNode(c, i))}
-//           </p>
-//         )
-//       case "text":
-//         return <span key={key}>{node.value}</span>
-//       case "list":
-//         const ListTag = node.ordered ? "ol" : "ul"
-//         return (
-//           <ListTag key={key} className={`mb-4 ${node.ordered ? "list-decimal" : "list-disc"} list-inside space-y-2`}>
-//             {node.children.map((c: any, i: number) => renderNode(c, i))}
-//           </ListTag>
-//         )
-//       case "listItem":
-//         return (
-//           <li key={key} className="text-lg sm:text-xl">
-//             {node.children.map((c: any, i: number) => renderNode(c, i))}
-//           </li>
-//         )
-//       case "code":
-//         return (
-//           <code key={key} className="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono">
-//             {node.value}
-//           </code>
-//         )
-//       case "blockquote":
-//         return (
-//           <blockquote key={key} className="border-l-4 border-gray-400 pl-4 italic text-lg sm:text-xl mb-4">
-//             {node.children.map((c: any, i: number) => renderNode(c, i))}
-//           </blockquote>
-//         )
-//       default:
-//         return null
-//     }
-//   }
-
-//   return (
-//     <div className="prose prose-lg max-w-none">{tree.children.map((node: any, i: number) => renderNode(node, i))}</div>
-//   )
-// }
-
-// export default SlideViewer
-
-
-
-
-
-
-
-
-
 
 
 
 
 import { remark } from "remark"
 import remarkParse from "remark-parse"
+//@ts-ignore
 import Prism from "prismjs"
-import "prismjs/themes/prism-tomorrow.css" // or import it globally in index.css
+import "prismjs/themes/prism-tomorrow.css" 
 import "prismjs/components/prism-javascript"
 import "prismjs/components/prism-css"
 import "prismjs/components/prism-markup"
 import "prismjs/components/prism-typescript"
-// Import more languages if needed
 
 type Props = {
   markdown: string
