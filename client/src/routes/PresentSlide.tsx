@@ -56,31 +56,31 @@ const PresentSlide = () => {
   const progress = ((currentIndex + 1) / slides.length) * 100
 
   const handleDelete = async () => {
-    const confirmed = window.confirm("Are you sure you want to delete this slide?");
-    if (!confirmed) return;
+    const confirmed = window.confirm("Are you sure you want to delete this slide?")
+    if (!confirmed) return
 
     try {
-      await axios.delete(`https://markdown-presentation.onrender.com/api/slides/${slide.id}`);
-      const updatedSlides = slides.filter((s) => s.id !== slide.id);
-      setSlides(updatedSlides);
+      await axios.delete(`https://markdown-presentation.onrender.com/api/slides/${slide.id}`)
+      const updatedSlides = slides.filter((s) => s.id !== slide.id)
+      setSlides(updatedSlides)
 
       if (updatedSlides.length === 0) {
-        navigate("/");
+        navigate("/")
       } else {
-        const nextIndex = Math.min(currentIndex, updatedSlides.length - 1);
-        setCurrentIndex(nextIndex);
+        const nextIndex = Math.min(currentIndex, updatedSlides.length - 1)
+        setCurrentIndex(nextIndex)
       }
     } catch (err) {
-      alert("Failed to delete the slide.");
+      alert("Failed to delete the slide.")
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-white text-black flex flex-col">
       {/* Main Slide Area */}
       <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
-        <div className="w-full max-w-4xl bg-slate-600 text-white rounded-lg p-6 sm:p-12 min-h-96">
-          <SlideViewer markdown={slide.markdown} />
+        <div className="w-full max-w-4xl min-h-96">
+          <SlideViewer markdown={slide.markdown} layout={slide.layout} />
         </div>
       </div>
 
@@ -102,9 +102,12 @@ const PresentSlide = () => {
             >
               Next →
             </button>
-            <button onClick={handleDelete}>
-          🗑 Delete
-        </button>
+            <button
+              onClick={handleDelete}
+              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 font-medium"
+            >
+              Delete
+            </button>
           </div>
 
           <div className="flex items-center gap-4">
@@ -123,7 +126,10 @@ const PresentSlide = () => {
         {/* Progress bar */}
         <div className="mt-4">
           <div className="w-full bg-gray-300 rounded-full h-2">
-            <div className="bg-slate-500 h-2 rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
+            <div
+              className="bg-slate-500 h-2 rounded-full transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
           </div>
         </div>
       </div>

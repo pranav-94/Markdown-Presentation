@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import Editor from "../components/Editor"
 import SlideViewer from "../components/SlideViewer"
+import LayoutSelector from "../components/layout-selector"
+// import LayoutPreview from "../components/layout-preview"
 
 export default function AddSlide() {
   const navigate = useNavigate()
@@ -12,6 +14,7 @@ export default function AddSlide() {
   const [layout, setLayout] = useState("default")
   const [markdown, setMarkdown] = useState("")
   const [saving, setSaving] = useState(false)
+  const [showLayoutSelector, setShowLayoutSelector] = useState(false)
 
   const handleSubmit = async () => {
     if (!title.trim() || !markdown.trim()) {
@@ -51,16 +54,29 @@ export default function AddSlide() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Layout</label>
-                <select
-                  value={layout}
-                  onChange={(e) => setLayout(e.target.value)}
-                  className="w-full px-4 py-3 bg-white text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+           
+
+                <button
+                  onClick={() => setShowLayoutSelector(!showLayoutSelector)}
+                  className="w-full px-4 py-3 bg-white text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent text-left flex justify-between items-center"
                 >
-                  <option value="default">Default</option>
-                  <option value="title">Title Slide</option>
-                  <option value="code">Code Layout</option>
-                </select>
+                  <span className="capitalize">{layout.replace(/-/g, " ")}</span>
+                  <span className="text-gray-500">{showLayoutSelector ? "▲" : "▼"}</span>
+                </button>
+
+                {showLayoutSelector && (
+                  <div className="mt-2">
+                    <LayoutSelector
+                      selectedLayout={layout}
+                      onChange={(newLayout) => {
+                        setLayout(newLayout)
+                        setShowLayoutSelector(false)
+                      }}
+                    />
+                  </div>
+                )}
+
+               
               </div>
 
               <div>
@@ -89,8 +105,8 @@ export default function AddSlide() {
           {/* Preview Section */}
           <div className="space-y-6">
             <h2 className="text-2xl font-bold">Live Preview</h2>
-            <div className="bg-white text-black rounded-lg p-6 min-h-96">
-              <SlideViewer markdown={markdown} />
+            <div className="bg-white text-black rounded-lg p-6 min-h-96 border">
+              <SlideViewer markdown={markdown} layout={layout} />
             </div>
           </div>
         </div>

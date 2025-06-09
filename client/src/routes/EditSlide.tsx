@@ -3,15 +3,18 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
-import SlideViewer from "../components/SlideViewer"
 import type { Slide } from "../types"
 import Editor from "../components/Editor"
+import SlideViewer from "../components/SlideViewer"
+import LayoutSelector from "../components/layout-selector"
+// import LayoutPreview from "../components/layout-preview"
 
 export default function EditSlide() {
   const { id } = useParams<{ id: string }>()
   const [slide, setSlide] = useState<Slide | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [showLayoutSelector, setShowLayoutSelector] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -63,16 +66,29 @@ export default function EditSlide() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Layout</label>
-                <select
-                  value={slide.layout}
-                  onChange={(e) => setSlide({ ...slide, layout: e.target.value })}
-                  className="w-full px-4 py-3 bg-white text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+          
+
+                <button
+                  onClick={() => setShowLayoutSelector(!showLayoutSelector)}
+                  className="w-full px-4 py-3 bg-white text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent text-left flex justify-between items-center"
                 >
-                  <option value="default">Default</option>
-                  <option value="title">Title Slide</option>
-                  <option value="code">Code Layout</option>
-                </select>
+                  <span className="capitalize">{slide.layout.replace(/-/g, " ")}</span>
+                  <span className="text-gray-500">{showLayoutSelector ? "▲" : "▼"}</span>
+                </button>
+
+                {showLayoutSelector && (
+                  <div className="mt-2">
+                    <LayoutSelector
+                      selectedLayout={slide.layout}
+                      onChange={(newLayout) => {
+                        setSlide({ ...slide, layout: newLayout })
+                        setShowLayoutSelector(false)
+                      }}
+                    />
+                  </div>
+                )}
+
+        
               </div>
 
               <div>
@@ -101,8 +117,8 @@ export default function EditSlide() {
           {/* Preview Section */}
           <div className="space-y-6">
             <h2 className="text-2xl font-bold">Live Preview</h2>
-            <div className="bg-white text-black rounded-lg p-6 min-h-96">
-              <SlideViewer markdown={slide.markdown} />
+            <div className="bg-white text-black rounded-lg p-6 min-h-96 border">
+              <SlideViewer markdown={slide.markdown} layout={slide.layout} />
             </div>
           </div>
         </div>
