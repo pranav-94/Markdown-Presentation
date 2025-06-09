@@ -37,7 +37,7 @@ export default function SlideList() {
                 {slides.map((slide) => (
                   <div
                     key={slide.id}
-                    className="bg-white text-black rounded-lg p-6 hover:shadow-lg transition-shadow duration-200"
+                    className="bg-white text-black rounded-lg p-6 shadow-lg transition-shadow duration-200"
                   >
                     <h3 className="text-xl font-semibold mb-4 truncate">{slide.title}</h3>
                     <div className="flex flex-col sm:flex-row gap-3">
