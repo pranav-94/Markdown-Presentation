@@ -106,7 +106,7 @@ export default function AddSlide() {
           <div className="space-y-6">
             <h2 className="text-2xl font-bold">Live Preview</h2>
             <div className="bg-white text-black rounded-lg p-6 min-h-96 border">
-              <SlideViewer markdown={markdown} layout={layout} />
+              <SlideViewer markdown={markdown} layout={layout} title={title}/>
             </div>
           </div>
         </div>
