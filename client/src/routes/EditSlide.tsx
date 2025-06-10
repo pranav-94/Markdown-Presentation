@@ -118,7 +118,7 @@ export default function EditSlide() {
           <div className="space-y-6">
             <h2 className="text-2xl font-bold">Live Preview</h2>
             <div className="bg-white text-black rounded-lg p-6 min-h-96 border">
-              <SlideViewer markdown={slide.markdown} layout={slide.layout} />
+              <SlideViewer markdown={slide.markdown} layout={slide.layout} title={slide.title} />
             </div>
           </div>
         </div>

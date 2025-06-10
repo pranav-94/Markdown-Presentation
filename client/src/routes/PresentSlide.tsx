@@ -80,7 +80,7 @@ const PresentSlide = () => {
       {/* Main Slide Area */}
       <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
         <div className="w-full max-w-4xl min-h-96">
-          <SlideViewer markdown={slide.markdown} layout={slide.layout} />
+          <SlideViewer markdown={slide.markdown} layout={slide.layout} title={slide.title}/>
         </div>
       </div>
 
