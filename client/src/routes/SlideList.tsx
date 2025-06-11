@@ -135,8 +135,10 @@ export default function SlideList() {
         </div>
       </div>
 
+
+
           {/* Header */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 mt-3 md:ml-2">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 mt-3 ml-2">
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">My Slides</h1>
               <p className="text-gray-600">
