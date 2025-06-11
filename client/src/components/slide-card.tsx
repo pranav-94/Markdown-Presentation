@@ -38,7 +38,7 @@ const SlideCard = ({ slide, isSelected }: SlideCardProps) => {
 
   return (
     <div
-      className={`bg-white rounded-lg shadow-sm border transition-all duration-200 group hover:shadow-md ${
+      className={`bg-white ml-2 rounded-lg shadow-sm border transition-all duration-200 group hover:shadow-md ${
         isSelected ? "ring-2 ring-blue-500 border-blue-200" : "border-gray-200 hover:border-gray-300"
       }`}
  

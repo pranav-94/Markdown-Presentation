@@ -115,10 +115,28 @@ export default function SlideList() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-6">
+      <div >
         <div className="max-w-7xl mx-auto">
+                {/* Header */}
+                <div className="bg-white border-b position-absolute border-gray-200 px-3 sm:px-4 py-2 flex items-center justify-between">
+        <div className="flex items-center gap-2 sm:gap-3">
+          
+          <span className="font-medium text-gray-700 text-sm sm:text-base hidden sm:block">Markdown Slides</span>
+        </div>
+        <div className="flex items-center gap-1 sm:gap-2">
+         
+          
+        <Link
+                to="/create"
+                className="px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-500 transition-colors shadow-sm"
+              >
+                + New Slide
+              </Link>
+        </div>
+      </div>
+
           {/* Header */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 mt-3 md:ml-2">
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">My Slides</h1>
               <p className="text-gray-600">
@@ -129,12 +147,7 @@ export default function SlideList() {
               {/* View Mode Toggle */}
              
 
-              <Link
-                to="/create"
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
-              >
-                + New Slide
-              </Link>
+              
             </div>
           </div>
 
@@ -142,7 +155,7 @@ export default function SlideList() {
 
           {/* Slides Grid/List */}
           {filteredSlides.length === 0 ? (
-            <div className="bg-white rounded-lg shadow-sm p-12 text-center">
+            <div className="bg-white rounded-lg shadow-sm p-12 text-center ">
               {searchQuery || selectedLayout !== "all" ? (
                 <>
                   <div className="text-4xl mb-4">🔍</div>
