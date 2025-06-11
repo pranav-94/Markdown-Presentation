@@ -207,7 +207,7 @@ const SlideViewer = ({ markdown, layout = "default", title = "" }: Props) => {
     case "two-column":
       const { first, second } = splitContentInHalf()
       return (
-        <div className="p-8 bg-white text-gray-800 rounded-md h-full">
+        <div className="p-8 bg-white text-gray-800 rounded-md h-full overflow-auto">
           {title && <h1 className="text-2xl font-bold mb-6 text-center">{title}</h1>}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
             <div className="space-y-4">{first}</div>
@@ -219,7 +219,7 @@ const SlideViewer = ({ markdown, layout = "default", title = "" }: Props) => {
     case "image-text":
       const { image, text } = getImageAndText()
       return (
-        <div className="p-8 bg-white text-gray-800 rounded-md h-full">
+        <div className="p-8 overflow-auto bg-white text-gray-800 rounded-md h-full">
           {title && <h1 className="text-2xl font-bold mb-6 text-center">{title}</h1>}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full items-center">
             <div className="flex items-center justify-center bg-gray-100 rounded-lg aspect-square">
@@ -240,7 +240,7 @@ const SlideViewer = ({ markdown, layout = "default", title = "" }: Props) => {
     case "quote":
       const quoteNode = getFirstQuote()
       return (
-        <div className="p-8 bg-gradient-to-b from-gray-50 to-gray-100 text-gray-800 rounded-md h-full flex flex-col items-center justify-center">
+        <div className="p-8 overflow-auto bg-gradient-to-b from-gray-50 to-gray-100 text-gray-800 rounded-md h-full flex flex-col items-center justify-center">
           <div className="text-6xl text-gray-300 font-serif mb-4">"</div>
           <blockquote className="text-xl sm:text-2xl lg:text-3xl font-light italic text-center max-w-4xl mb-8">
             {quoteNode
@@ -254,7 +254,7 @@ const SlideViewer = ({ markdown, layout = "default", title = "" }: Props) => {
 
     case "center":
       return (
-        <div className="flex flex-col items-center justify-center h-full p-8 bg-white text-gray-800 rounded-md text-center">
+        <div className="flex overflow-auto flex-col items-center justify-center h-full p-8 bg-white text-gray-800 rounded-md text-center">
           {title && <h1 className="text-2xl font-bold mb-6">{title}</h1>}
           <div className="max-w-3xl space-y-4">{getAllContent()}</div>
         </div>
@@ -262,7 +262,7 @@ const SlideViewer = ({ markdown, layout = "default", title = "" }: Props) => {
 
     case "section":
       return (
-        <div className="flex flex-col items-center justify-center h-full p-8 bg-gradient-to-br from-gray-800 to-gray-900 text-white rounded-md text-center">
+        <div className="flex overflow-auto flex-col items-center justify-center h-full p-8 bg-gradient-to-br from-gray-800 to-gray-900 text-white rounded-md text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
             {title || getFirstHeading()}
           </h1>
@@ -273,7 +273,7 @@ const SlideViewer = ({ markdown, layout = "default", title = "" }: Props) => {
 
     case "blank":
       return (
-        <div className="p-8 bg-white text-gray-800 rounded-md h-full">
+        <div className="p-8 overflow-auto bg-white text-gray-800 rounded-md h-full">
           {title && <h1 className="text-2xl font-bold mb-6 text-center">{title}</h1>}
           {getAllContent()}
         </div>
@@ -282,7 +282,7 @@ const SlideViewer = ({ markdown, layout = "default", title = "" }: Props) => {
     case "default":
     default:
       return (
-        <div className="p-8 bg-white text-gray-800 rounded-md h-full overflow-auto">
+        <div className="p-8  bg-white text-gray-800 rounded-md h-full overflow-auto">
           {title && <h1 className="text-2xl font-bold mb-6">{title}</h1>}
           {getAllContent()}
         </div>
