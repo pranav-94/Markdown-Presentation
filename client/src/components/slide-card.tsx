@@ -57,7 +57,6 @@ const SlideCard = ({ slide, isSelected }: SlideCardProps) => {
                 {layoutNames[slide.layout || "default"]}
               </span>
               <span>•</span>
-              <span>Updated 2 days ago</span>
             </div>
           </div>
 

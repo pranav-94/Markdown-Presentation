@@ -159,7 +159,7 @@ export default function EditSlide() {
 
         {/* Center - Slide Preview */}
         {(activeTab === "preview" || window.innerWidth >= 768) && (
-          <div className={`${activeTab === "preview" ? "flex-1" : "hidden"} md:flex md:flex-1 flex-col bg-white`}>
+          <div className={`${activeTab === "preview" ? "flex-1" : "hidden"} md:flex md:flex-1 flex-col bg-white `}>
             {/* <SlideToolbar
               onPrevious={() => {
                 if (currentSlideIndex > 0) {
