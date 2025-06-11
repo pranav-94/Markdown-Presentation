@@ -19,6 +19,8 @@ export default function EditSlide() {
   const [activeTab, setActiveTab] = useState("preview") // For mobile tabs
   const navigate = useNavigate()
 
+  console.log(allSlides,currentSlideIndex)
+
   const tabs = [
     { id: "slides", label: "Slides", icon: "📄" },
     { id: "preview", label: "Preview", icon: "👁" },
