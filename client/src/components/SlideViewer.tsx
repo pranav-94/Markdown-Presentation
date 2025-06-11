@@ -15,9 +15,8 @@ type Props = {
   title: string
 }
 
-const SlideViewer = ({ markdown, layout, title = "default" }: Props) => {
+const SlideViewer = ({ markdown, layout = "default", title = "" }: Props) => {
   const tree = remark().use(remarkParse).parse(markdown)
-  console.log(markdown,layout,title)
 
   const renderNode = (node: any, key: number) => {
     switch (node.type) {
@@ -30,12 +29,12 @@ const SlideViewer = ({ markdown, layout, title = "default" }: Props) => {
             key={key}
             className={`font-bold mb-4 ${
               node.depth === 1
-                ? "text-4xl sm:text-5xl lg:text-6xl"
+                ? "text-2xl sm:text-3xl lg:text-4xl"
                 : node.depth === 2
-                  ? "text-3xl sm:text-4xl lg:text-5xl"
+                  ? "text-xl sm:text-2xl lg:text-3xl"
                   : node.depth === 3
-                    ? "text-2xl sm:text-3xl lg:text-4xl"
-                    : "text-xl sm:text-2xl lg:text-3xl"
+                    ? "text-lg sm:text-xl lg:text-2xl"
+                    : "text-base sm:text-lg lg:text-xl"
             }`}
           >
             {node.children[0]?.value || ""}
@@ -44,7 +43,7 @@ const SlideViewer = ({ markdown, layout, title = "default" }: Props) => {
 
       case "paragraph":
         return (
-          <p key={key} className="text-lg sm:text-xl lg:text-2xl leading-relaxed mb-6">
+          <p key={key} className="text-sm sm:text-base lg:text-lg leading-relaxed mb-4">
             {node.children.map((c: any, i: number) => renderNode(c, i))}
           </p>
         )
@@ -57,9 +56,9 @@ const SlideViewer = ({ markdown, layout, title = "default" }: Props) => {
         return (
           <ListTag
             key={key}
-            className={`mb-6 text-lg sm:text-xl lg:text-2xl leading-relaxed ${
+            className={`mb-4 text-sm sm:text-base lg:text-lg leading-relaxed ${
               node.ordered ? "list-decimal" : "list-disc"
-            } list-inside space-y-3 pl-4`}
+            } list-inside space-y-2 pl-4`}
           >
             {node.children.map((c: any, i: number) => renderNode(c, i))}
           </ListTag>
@@ -67,7 +66,7 @@ const SlideViewer = ({ markdown, layout, title = "default" }: Props) => {
 
       case "listItem":
         return (
-          <li key={key} className="mb-2">
+          <li key={key} className="mb-1">
             {node.children.map((c: any, i: number) => renderNode(c, i))}
           </li>
         )
@@ -84,8 +83,8 @@ const SlideViewer = ({ markdown, layout, title = "default" }: Props) => {
         }
 
         return (
-          <div key={key} className="mb-6">
-            <pre className="bg-white text-gray-900 text-sm sm:text-base rounded-lg p-4 sm:p-6 overflow-auto border border-gray-700 shadow-lg">
+          <div key={key} className="mb-4">
+            <pre className="bg-gray-50 text-gray-800 text-xs sm:text-sm rounded-md p-3 overflow-auto border border-gray-200">
               <code className="font-mono leading-relaxed" dangerouslySetInnerHTML={{ __html: html }} />
             </pre>
           </div>
@@ -94,7 +93,7 @@ const SlideViewer = ({ markdown, layout, title = "default" }: Props) => {
 
       case "inlineCode":
         return (
-          <code key={key} className="bg-gray-200 text-gray-900 px-2 py-1 rounded text-sm sm:text-base font-mono border">
+          <code key={key} className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-xs sm:text-sm font-mono">
             {node.value}
           </code>
         )
@@ -103,7 +102,7 @@ const SlideViewer = ({ markdown, layout, title = "default" }: Props) => {
         return (
           <blockquote
             key={key}
-            className="border-l-4 border-gray-400 pl-6 italic text-lg sm:text-xl lg:text-2xl mb-6 bg-gray-50 py-4 rounded-r-lg"
+            className="border-l-3 border-gray-300 pl-4 italic text-sm sm:text-base lg:text-lg mb-4 bg-gray-50 py-3 rounded-r-md"
           >
             {node.children.map((c: any, i: number) => renderNode(c, i))}
           </blockquote>
@@ -127,7 +126,7 @@ const SlideViewer = ({ markdown, layout, title = "default" }: Props) => {
         return <br key={key} />
 
       case "thematicBreak":
-        return <hr key={key} className="my-8 border-gray-300" />
+        return <hr key={key} className="my-6 border-gray-200" />
 
       default:
         return null
@@ -137,8 +136,7 @@ const SlideViewer = ({ markdown, layout, title = "default" }: Props) => {
   const getFirstHeading = () => {
     //@ts-ignore
     const headingNode = tree.children.find((node: any) => node.type === "heading" && node.depth === 1)
-    console.log(headingNode)
-          //@ts-ignore
+    //@ts-ignore
     return headingNode?.children[0]?.value || "Untitled"
   }
 
@@ -146,7 +144,6 @@ const SlideViewer = ({ markdown, layout, title = "default" }: Props) => {
     const headings = tree.children.filter((node: any) => node.type === "heading")
     if (headings.length > 1) {
       //@ts-ignore
-
       return headings[1]?.children[0]?.value || ""
     }
     return ""
@@ -155,7 +152,7 @@ const SlideViewer = ({ markdown, layout, title = "default" }: Props) => {
   const getFirstParagraph = () => {
     const paragraphNode = tree.children.find((node: any) => node.type === "paragraph")
     if (paragraphNode) {
-            //@ts-ignore
+      //@ts-ignore
       return paragraphNode.children.map((c: any) => c.value).join(" ")
     }
     return ""
@@ -166,94 +163,131 @@ const SlideViewer = ({ markdown, layout, title = "default" }: Props) => {
     return quoteNode || null
   }
 
-//   switch (layout) {
-//     case "title":
-//       return (
-//         <div className="flex flex-col items-center justify-center h-full p-12 bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900 text-center text-white rounded-lg shadow-xl">
-//           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 drop-shadow-md">
-//             {getFirstHeading()}
-//           </h1>
-//           <p className="text-xl sm:text-2xl lg:text-3xl font-light opacity-80 max-w-2xl">{getFirstParagraph()}</p>
-//         </div>
-//       )
+  const getAllContent = () => {
+    return tree.children.map((node: any, i: number) => renderNode(node, i))
+  }
 
-//     case "quote":
-//       const quoteNode = getFirstQuote()
-//       return (
-//         <div className="p-8 bg-gradient-to-br from-slate-100 to-slate-200 text-slate-800 rounded-lg shadow-md h-full flex flex-col items-center justify-center">
-//           <div className="text-6xl text-slate-300 font-serif mb-4">"</div>
-//           <blockquote className="text-2xl sm:text-3xl lg:text-4xl font-light italic text-center max-w-3xl mb-8">
-// {
-//             //@ts-ignore
-//             quoteNode ? quoteNode.children.map((c: any, i: number) => renderNode(c, i)) : getFirstParagraph()}
-//           </blockquote>
-//           <div className="text-xl font-medium text-slate-600">— {getSecondHeading() || "Author"}</div>
-//         </div>
-//       )
+  const splitContentInHalf = () => {
+    const allNodes = tree.children
+    const midpoint = Math.ceil(allNodes.length / 2)
+    const firstHalf = allNodes.slice(0, midpoint)
+    const secondHalf = allNodes.slice(midpoint)
 
-//     case "blank":
-//       return (
-//         <div className="p-8 bg-white text-slate-800 rounded-lg shadow-md h-full">
-//           {tree.children.map((node: any, i: number) => renderNode(node, i))}
-//         </div>
-//       )
+    return {
+      first: firstHalf.map((node: any, i: number) => renderNode(node, i)),
+      second: secondHalf.map((node: any, i: number) => renderNode(node, i + midpoint)),
+    }
+  }
 
-//     case "default":
-//     default:
-//       return (
-//         <div className="p-8 bg-white text-slate-800 rounded-lg shadow-md h-full overflow-auto">
-//           {tree.children.map((node: any, i: number) => renderNode(node, i))}
-//         </div>
-//       )
-//   }
-
-// In your SlideViewer.tsx, update the layout cases to use the title prop:
-
-switch (layout) {
-  case "title":
-    return (
-      <div className="flex flex-col items-center justify-center h-full p-12 bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900 text-center text-white rounded-lg shadow-xl">
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 drop-shadow-md">
-          {
-          title || getFirstHeading()} {/* Use title prop first, fallback to markdown heading */}
-        </h1>
-        <p className="text-xl sm:text-2xl lg:text-3xl font-light opacity-80 max-w-2xl">{getFirstParagraph()}</p>
-      </div>
+  const getImageAndText = () => {
+    const imageNode = tree.children.find(
+      (node: any) => node.type === "paragraph" && node.children.some((child: any) => child.type === "image"),
+    )
+    const textNodes = tree.children.filter(
+      (node: any) => !(node.type === "paragraph" && node.children.some((child: any) => child.type === "image")),
     )
 
-  case "quote":
-    const quoteNode = getFirstQuote()
-    return (
-      <div className="p-8 bg-gradient-to-br from-slate-100 to-slate-200 text-slate-800 rounded-lg shadow-md h-full flex flex-col items-center justify-center">
-        <div className="text-6xl text-slate-300 font-serif mb-4">"</div>
-        <blockquote className="text-2xl sm:text-3xl lg:text-4xl font-light italic text-center max-w-3xl mb-8">
-          {quoteNode ? 
-          //@ts-ignore
-          quoteNode.children.map((c: any, i: number) => renderNode(c, i)) : getFirstParagraph()}
-        </blockquote>
-        <div className="text-xl font-medium text-slate-600">— {getSecondHeading() || title || "Author"}</div>
-      </div>
-    )
+    return {
+      image: imageNode,
+      text: textNodes.map((node: any, i: number) => renderNode(node, i)),
+    }
+  }
 
-  case "blank":
-    return (
-      <div className="p-8 bg-white text-slate-800 rounded-lg shadow-md h-full">
-        {/* Add title at the top if you want */}
-        {title && <h1 className="text-3xl font-bold mb-6 text-center">{title}</h1>}
-        {tree.children.map((node: any, i: number) => renderNode(node, i))}
-      </div>
-    )
+  switch (layout) {
+    case "title":
+      return (
+        <div className="flex flex-col items-center justify-center h-full p-8 bg-gradient-to-b from-gray-50 to-gray-100 text-center text-gray-800 rounded-md">
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight mb-6">
+            {title || getFirstHeading()}
+          </h1>
+          <p className="text-lg sm:text-xl lg:text-2xl font-light text-gray-600 max-w-3xl">{getFirstParagraph()}</p>
+        </div>
+      )
 
-  case "default":
-  default:
-    return (
-      <div className="p-8 bg-white text-slate-800 rounded-lg shadow-md h-full overflow-auto">
-        {/* Add title at the top if you want */}
-        {title && <h1 className="text-3xl font-bold mb-6 text-center">{title}</h1>}
-        {tree.children.map((node: any, i: number) => renderNode(node, i))}
-      </div>
-    )
-}
+    case "two-column":
+      const { first, second } = splitContentInHalf()
+      return (
+        <div className="p-8 bg-white text-gray-800 rounded-md h-full">
+          {title && <h1 className="text-2xl font-bold mb-6 text-center">{title}</h1>}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
+            <div className="space-y-4">{first}</div>
+            <div className="space-y-4">{second}</div>
+          </div>
+        </div>
+      )
+
+    case "image-text":
+      const { image, text } = getImageAndText()
+      return (
+        <div className="p-8 bg-white text-gray-800 rounded-md h-full">
+          {title && <h1 className="text-2xl font-bold mb-6 text-center">{title}</h1>}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full items-center">
+            <div className="flex items-center justify-center bg-gray-100 rounded-lg aspect-square">
+              {image ? (
+                renderNode(image, 0)
+              ) : (
+                <div className="text-gray-400 text-center">
+                  <div className="text-4xl mb-2">🖼️</div>
+                  <div className="text-sm">Add an image with ![alt](url)</div>
+                </div>
+              )}
+            </div>
+            <div className="space-y-4">{text}</div>
+          </div>
+        </div>
+      )
+
+    case "quote":
+      const quoteNode = getFirstQuote()
+      return (
+        <div className="p-8 bg-gradient-to-b from-gray-50 to-gray-100 text-gray-800 rounded-md h-full flex flex-col items-center justify-center">
+          <div className="text-6xl text-gray-300 font-serif mb-4">"</div>
+          <blockquote className="text-xl sm:text-2xl lg:text-3xl font-light italic text-center max-w-4xl mb-8">
+            {quoteNode
+              ? //@ts-ignore
+                quoteNode.children.map((c: any, i: number) => renderNode(c, i))
+              : getFirstParagraph()}
+          </blockquote>
+          <div className="text-lg font-medium text-gray-600">— {getSecondHeading() || title || "Author"}</div>
+        </div>
+      )
+
+    case "center":
+      return (
+        <div className="flex flex-col items-center justify-center h-full p-8 bg-white text-gray-800 rounded-md text-center">
+          {title && <h1 className="text-2xl font-bold mb-6">{title}</h1>}
+          <div className="max-w-3xl space-y-4">{getAllContent()}</div>
+        </div>
+      )
+
+    case "section":
+      return (
+        <div className="flex flex-col items-center justify-center h-full p-8 bg-gradient-to-br from-gray-800 to-gray-900 text-white rounded-md text-center">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+            {title || getFirstHeading()}
+          </h1>
+          <div className="w-24 h-1 bg-white mb-6"></div>
+          <p className="text-lg sm:text-xl lg:text-2xl font-light opacity-80 max-w-2xl">{getFirstParagraph()}</p>
+        </div>
+      )
+
+    case "blank":
+      return (
+        <div className="p-8 bg-white text-gray-800 rounded-md h-full">
+          {title && <h1 className="text-2xl font-bold mb-6 text-center">{title}</h1>}
+          {getAllContent()}
+        </div>
+      )
+
+    case "default":
+    default:
+      return (
+        <div className="p-8 bg-white text-gray-800 rounded-md h-full overflow-auto">
+          {title && <h1 className="text-2xl font-bold mb-6">{title}</h1>}
+          {getAllContent()}
+        </div>
+      )
+  }
 }
 
 export default SlideViewer
