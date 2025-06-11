@@ -16,7 +16,7 @@ export default function AddSlide() {
     "# Introducing *Markdown Slides*\n\n---\n\nMarkdown is a lightweight markup language that allows you to format plain text documents. It is easy to learn and widely used for creating documents and web pages.\n\nNow you can make **presentations** in markdown. This web application transforms the markup language into simple slide decks to draft, share, or present.",
   )
   const [saving, setSaving] = useState(false)
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
+  const [currentSlideIndex] = useState(0)
   const [activeTab, setActiveTab] = useState("preview") // For mobile tabs
 
   // Mock slides for demonstration

@@ -73,14 +73,14 @@ export default function EditSlide() {
     }
   }
 
-  const handleSlideSelect = (index: number) => {
-    setCurrentSlideIndex(index)
-    const selectedSlide = allSlides[index]
-    if (selectedSlide) {
-      setSlide(selectedSlide)
-      navigate(`/edit/${selectedSlide.id}`, { replace: true })
-    }
-  }
+  // const handleSlideSelect = (index: number) => {
+  //   setCurrentSlideIndex(index)
+  //   const selectedSlide = allSlides[index]
+  //   if (selectedSlide) {
+  //     setSlide(selectedSlide)
+  //     navigate(`/edit/${selectedSlide.id}`, { replace: true })
+  //   }
+  // }
 
   if (loading || !slide) {
     return (

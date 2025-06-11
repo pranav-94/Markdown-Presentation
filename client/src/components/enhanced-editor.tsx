@@ -10,22 +10,22 @@ type Props = {
 const EnhancedEditor = ({ value, onChange }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-  const handleInsert = (text: string) => {
-    if (!textareaRef.current) return
+//   const handleInsert = (text: string) => {
+//     if (!textareaRef.current) return
 
-    const textarea = textareaRef.current
-    const start = textarea.selectionStart
-    const end = textarea.selectionEnd
-    const newValue = value.substring(0, start) + text + value.substring(end)
+//     const textarea = textareaRef.current
+//     const start = textarea.selectionStart
+//     const end = textarea.selectionEnd
+//     const newValue = value.substring(0, start) + text + value.substring(end)
 
-    onChange(newValue)
+//     onChange(newValue)
 
-    // Set cursor position after inserted text
-    setTimeout(() => {
-      textarea.focus()
-      textarea.setSelectionRange(start + text.length, start + text.length)
-    }, 0)
-  }
+//     // Set cursor position after inserted text
+//     setTimeout(() => {
+//       textarea.focus()
+//       textarea.setSelectionRange(start + text.length, start + text.length)
+//     }, 0)
+//   }
 
   return (
     <div className="flex flex-col h-full bg-white border border-gray-200 rounded-lg overflow-hidden">
