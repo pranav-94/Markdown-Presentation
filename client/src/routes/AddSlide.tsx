@@ -93,8 +93,9 @@ export default function AddSlide() {
 
       <div className="flex-1 flex overflow-hidden">
         {/* Left Sidebar - Slide Thumbnails (Desktop) */}
+
         <div className="hidden md:block w-48 lg:w-56 bg-gray-50 border-r border-gray-200 p-3 overflow-y-auto">
-         
+        <LayoutSelector selectedLayout={layout} onChange={setLayout} />
         </div>
 
         {/* Mobile Slides List */}
@@ -155,7 +156,7 @@ export default function AddSlide() {
               className="w-full px-2 py-1 text-sm border border-gray-200 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 mb-3"
               placeholder="Slide title..."
             />
-            <LayoutSelector selectedLayout={layout} onChange={setLayout} />
+           
           </div>
           <div className="flex-1 p-3">
             <EnhancedEditor value={markdown} onChange={setMarkdown} />
