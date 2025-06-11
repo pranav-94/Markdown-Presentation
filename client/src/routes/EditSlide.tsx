@@ -75,14 +75,6 @@ export default function EditSlide() {
     }
   }
 
-  // const handleSlideSelect = (index: number) => {
-  //   setCurrentSlideIndex(index)
-  //   const selectedSlide = allSlides[index]
-  //   if (selectedSlide) {
-  //     setSlide(selectedSlide)
-  //     navigate(`/edit/${selectedSlide.id}`, { replace: true })
-  //   }
-  // }
 
   if (loading || !slide) {
     return (
@@ -97,9 +89,7 @@ export default function EditSlide() {
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-3 sm:px-4 py-2 flex items-center justify-between">
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="w-6 h-6 sm:w-8 sm:h-8 bg-black rounded flex items-center justify-center">
-            <span className="text-white font-bold text-xs sm:text-sm">M</span>
-          </div>
+          
           <span className="font-medium text-gray-700 text-sm sm:text-base hidden sm:block">Markdown Slides</span>
         </div>
         <div className="flex items-center gap-1 sm:gap-2">
