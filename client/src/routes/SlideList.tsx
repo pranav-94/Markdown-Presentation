@@ -16,6 +16,8 @@ export default function SlideList() {
   const [selectedSlides, setSelectedSlides] = useState<number[]>([])
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
 
+  console.log(setSortBy,setViewMode)
+
   useEffect(() => {
     fetchSlides()
   }, [])
@@ -98,52 +100,7 @@ export default function SlideList() {
     setSelectedSlides((prev) => (prev.includes(id) ? prev.filter((slideId) => slideId !== id) : [...prev, id]))
   }
 
-  const handleSelectAll = () => {
-    setSelectedSlides(filteredSlides.map((slide) => slide.id))
-  }
 
-  const handleDeselectAll = () => {
-    setSelectedSlides([])
-  }
-
-  const handleDeleteSelected = async () => {
-    const confirmed = window.confirm(
-      `Are you sure you want to delete ${selectedSlides.length} slide${selectedSlides.length !== 1 ? "s" : ""}?`,
-    )
-    if (!confirmed) return
-
-    try {
-      await Promise.all(
-        selectedSlides.map((id) => axios.delete(`https://markdown-presentation.onrender.com/api/slides/${id}`)),
-      )
-      setAllSlides((prev) => prev.filter((slide) => !selectedSlides.includes(slide.id)))
-      setSelectedSlides([])
-    } catch (error) {
-      console.error("Error deleting slides:", error)
-      alert("Failed to delete some slides")
-    }
-  }
-
-  const handleDuplicateSelected = async () => {
-    try {
-      const slidesToDuplicate = allSlides.filter((slide) => selectedSlides.includes(slide.id))
-      const duplicatePromises = slidesToDuplicate.map((slide) =>
-        axios.post("https://markdown-presentation.onrender.com/api/slides", {
-          title: `${slide.title} (Copy)`,
-          layout: slide.layout,
-          markdown: slide.markdown,
-        }),
-      )
-
-      const responses = await Promise.all(duplicatePromises)
-      const newSlides = responses.map((response) => response.data)
-      setAllSlides((prev) => [...prev, ...newSlides])
-      setSelectedSlides([])
-    } catch (error) {
-      console.error("Error duplicating slides:", error)
-      alert("Failed to duplicate some slides")
-    }
-  }
 
   if (loading) {
     return (
