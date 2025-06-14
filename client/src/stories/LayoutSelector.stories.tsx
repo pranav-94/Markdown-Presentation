@@ -11,16 +11,16 @@ export default meta;
 
 type Story = StoryObj<typeof LayoutSelector>;
 
-const allLayouts = [
-  "default",
-  "title",
-  "two-column",
-  "image-text",
-  "quote",
-  "center",
-  "section",
-  "blank",
-];
+// const allLayouts = [
+//   "default",
+//   "title",
+//   "two-column",
+//   "image-text",
+//   "quote",
+//   "center",
+//   "section",
+//   "blank",
+// ];
 
 const DesktopTemplate = () => {
   const [selected, setSelected] = useState("default");
